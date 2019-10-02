@@ -24,7 +24,7 @@ import static junit.framework.TestCase.assertEquals;
 public class StudentControllerTest {
     @Autowired
     private TestRestTemplate restTemplate;
-    private String baseURL="http://localhost:8080/lookup/student";
+    private String baseURL="http://localhost:8080/api/student";
 
     @Test
     public void testGetAllStudents() {

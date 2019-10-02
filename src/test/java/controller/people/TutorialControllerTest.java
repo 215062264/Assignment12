@@ -22,7 +22,7 @@ import static org.junit.Assert.assertNotNull;
 public class TutorialControllerTest {
     @Autowired
     private TestRestTemplate restTemplate;
-    private String baseURL="http://localhost:8080/lookup/tutorial";
+    private String baseURL="http://localhost:8080/api/tutorial";
 
     @Test
     public void testGetAllStudents() {

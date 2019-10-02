@@ -17,13 +17,13 @@ public class TutorialController {
 
     @PostMapping("/create")
     @ResponseBody
-    public Tutorial create(Tutorial student) {
+    public Tutorial create(@RequestBody Tutorial student) {
         return service.create(student);
     }
 
     @PostMapping("/update")
     @ResponseBody
-    public Tutorial update(Tutorial student) {
+    public Tutorial update(@RequestBody Tutorial student) {
         return service.update(student);
     }
 

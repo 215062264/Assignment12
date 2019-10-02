@@ -37,9 +37,9 @@ public class LearnerManagementSystemSecurity extends  WebSecurityConfigurerAdapt
                 .and()
                 .authorizeRequests()
               .antMatchers(HttpMethod.GET,"/api/**").hasAnyRole(USER_ROLE,ADMIN_ROLE)
-                .antMatchers(HttpMethod.POST, "/api/admin/**").hasRole(ADMIN_ROLE)
-              .antMatchers(HttpMethod.PUT, "/api/admin/**").hasRole(ADMIN_ROLE)
-              .antMatchers(HttpMethod.DELETE,"/api/admin/**").hasRole(ADMIN_ROLE)
+                .antMatchers(HttpMethod.POST, "/api/**").hasRole(ADMIN_ROLE)
+              .antMatchers(HttpMethod.PUT, "/api/**").hasRole(ADMIN_ROLE)
+              .antMatchers(HttpMethod.DELETE,"/api/**").hasRole(ADMIN_ROLE)
                 .and()
                 .csrf().disable()
                 .formLogin().disable();

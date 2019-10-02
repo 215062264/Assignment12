@@ -16,13 +16,13 @@ public class LectureController {
 
     @PostMapping("/create")
     @ResponseBody
-    public Lecture create(Lecture student) {
+    public Lecture create(@RequestBody Lecture student) {
         return service.create(student);
     }
 
     @PostMapping("/update")
     @ResponseBody
-    public Lecture update(Lecture student) {
+    public Lecture update(@RequestBody Lecture student) {
         return service.update(student);
     }
 

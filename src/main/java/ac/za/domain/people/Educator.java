@@ -7,7 +7,7 @@ import java.util.Objects;
 @EntityScan
 public class Educator {
 
-    private String educatorId, educatorFirstName, educatorLastName;
+    private String  educatorFirstName, educatorLastName,educatorId;
     private int age;
 
     private Educator(){}

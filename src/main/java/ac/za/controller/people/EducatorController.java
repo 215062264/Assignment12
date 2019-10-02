@@ -17,13 +17,13 @@ public class EducatorController {
 
     @PostMapping("/create")
     @ResponseBody
-    public Educator create(Educator educator) {
+    public Educator create(@RequestBody  Educator educator) {
         return service.create(educator);
     }
 
     @PostMapping("/update")
     @ResponseBody
-    public Educator update(Educator educator) {
+    public Educator update(@RequestBody Educator educator) {
         return service.update(educator);
     }
 

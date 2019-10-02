@@ -27,7 +27,7 @@ import static org.junit.Assert.assertNotNull;
 public class LectureControllerTest {
     @Autowired
     private TestRestTemplate restTemplate;
-    private String baseURL="http://localhost:8080/lookup/lecture";
+    private String baseURL="http://localhost:8080/api/admin/lecture";
 
     @Test
     public void testGetAllLecture() {
