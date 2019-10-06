@@ -1,16 +1,31 @@
 package ac.za.domain.people;
 
 
-import org.springframework.boot.autoconfigure.domain.EntityScan;
-
+import javax.persistence.*;
 import java.util.Objects;
-@EntityScan
+@Entity
 public class Educator {
 
-    private String  educatorFirstName, educatorLastName,educatorId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer educatorId;
+    private String  educatorFirstName;
+    private String   educatorLastName;
     private int age;
 
-    private Educator(){}
+    public Educator() {
+    }
+
+     public Educator(String educatorFirstName, String educatorLastName, int age) {
+            this(null,educatorFirstName,educatorLastName,age);
+    }
+
+    public Educator(Integer educatorId, String educatorFirstName, String educatorLastName, int age) {
+        this.educatorId = educatorId;
+        this.educatorFirstName = educatorFirstName;
+        this.educatorLastName = educatorLastName;
+        this.age = age;
+    }
 
     private Educator(Builder builder) {
         this.educatorId = builder.educatorId;
@@ -19,8 +34,12 @@ public class Educator {
         this.educatorLastName = builder.educatorLastName;
     }
 
-    public String getEducatorId() {
+    public Integer getEducatorId() {
         return educatorId;
+    }
+
+    public void setEducatorId(Integer educatorId){
+        this.educatorId = educatorId;
     }
 
     public String getEducatorFirstName() {
@@ -37,10 +56,11 @@ public class Educator {
 
     public static class Builder {
 
-        private String educatorId, educatorFirstName, educatorLastName;
+        private Integer educatorId;
+            private String educatorFirstName, educatorLastName;
         private int age;
 
-        public Builder educatorId( String educatorId) {
+        public Builder educatorId( Integer educatorId) {
             this.educatorId = educatorId;
             return this;
         }

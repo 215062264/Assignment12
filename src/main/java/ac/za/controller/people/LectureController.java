@@ -5,13 +5,13 @@ import ac.za.service.serviceInterface.people.LectureService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
-import java.util.Set;
 @RestController
 @RequestMapping("/api/admin/lecture")
 public class LectureController {
     @Autowired
-    @Qualifier("lectureServiceImpl")
+    @Qualifier("lectureService")
     private LectureService service;
 
     @PostMapping("/create")
@@ -28,19 +28,19 @@ public class LectureController {
 
     @GetMapping("/delete/{id}")
     @ResponseBody
-    public void delete(@PathVariable String id) {
+    public void delete(@PathVariable Integer id) {
         service.delete(id);
     }
 
     @GetMapping("/read/{id}")
     @ResponseBody
-    public Lecture read(@PathVariable String id) {
+    public Lecture read(@PathVariable Integer id) {
         return service.read(id);
     }
 
     @GetMapping("/read/all")
     @ResponseBody
-    public Set<Lecture> getAll() {
+    public List<Lecture> getAll() {
         return service.getAll();
     }
 }

@@ -2,10 +2,11 @@ package ac.za.repository.repoInterface.people;
 
 import ac.za.domain.people.Lecture;
 import ac.za.repository.IRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.Set;
-
-public interface LectureRepository extends IRepository<Lecture, String> {
-    Set<Lecture> getAll();
+@Repository("lectureRepository")
+public interface LectureRepository extends JpaRepository<Lecture, Integer> {
 
 }

@@ -5,7 +5,7 @@ import ac.za.util.Misc;
 
 public class StudentFactory {
 
-    public static Student getStudent(String studentId,String firstName, String lastName, int age) {
+    public static Student getStudent(Integer studentId,String firstName, String lastName, int age) {
         return new Student.Builder()
                 .age(age)
                 .studentId(studentId)

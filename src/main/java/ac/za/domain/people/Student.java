@@ -1,15 +1,33 @@
 package ac.za.domain.people;
 
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.Objects;
-@EntityScan
+
+@Entity
 public class Student {
 
-    private String studentId, studentFirstName, studentLastName;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer studentId;
+    private String studentFirstName, studentLastName;
     private int age;
 
     private Student(){}
+
+    public Student(String studentFirstName, String studentLastName, int age) {
+        this(null,studentFirstName,studentLastName,age);
+    }
+
+    public Student(Integer studentId, String studentFirstName, String studentLastName, int age) {
+        this.studentId = studentId;
+        this.studentFirstName = studentFirstName;
+        this.studentLastName = studentLastName;
+        this.age = age;
+    }
 
     private Student(Builder builder) {
         this.studentId = builder.studentId;
@@ -18,7 +36,7 @@ public class Student {
         this.studentLastName = builder.studentLastName;
     }
 
-    public String getStudentId() {
+    public Integer getStudentId() {
         return studentId;
     }
 
@@ -35,11 +53,11 @@ public class Student {
     }
 
     public static class Builder {
-
-        private String studentId, studentFirstName, studentLastName;
+        private Integer studentId;
+        private String studentFirstName, studentLastName;
         private int age;
 
-        public Builder studentId( String studentId) {
+        public Builder studentId( Integer studentId) {
             this.studentId = studentId;
             return this;
         }

@@ -5,14 +5,13 @@ import ac.za.service.serviceInterface.people.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Set;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/student")
 public class StudentController {
     @Autowired
-    @Qualifier("studentServiceImpl")
+    @Qualifier("studentService")
     private StudentService service;
 
 
@@ -28,19 +27,19 @@ public class StudentController {
 
     @GetMapping("/delete/{id}")
     @ResponseBody
-    public void delete(@PathVariable String id) {
+    public void delete(@PathVariable Integer id) {
         service.delete(id);
     }
 
     @GetMapping("/read/{id}")
     @ResponseBody
-    public Student read(@PathVariable String id) {
+    public Student read(@PathVariable Integer id) {
         return service.read(id);
     }
 
     @GetMapping("/read/all")
     @ResponseBody
-    public Set<Student> getAll() {
+    public List<Student> getAll() {
         return service.getAll();
     }
 }

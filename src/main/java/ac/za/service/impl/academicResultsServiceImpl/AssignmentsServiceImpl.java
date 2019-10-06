@@ -2,59 +2,61 @@ package ac.za.service.impl.academicResultsServiceImpl;
 
 import ac.za.domain.academicResults.Assignments;
 import ac.za.repository.repoInterface.academicResults.AssignmentsRepository;
-import ac.za.repository.Impl.academicResultsRepositoryImpl.AssignmentsRepositoryImpl;
 import ac.za.service.serviceInterface.academicResults.AssignmentsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import java.util.List;
+import java.util.Optional;
 
-import java.util.Set;
 @Service("assignmentsServiceImpl")
 public class AssignmentsServiceImpl implements AssignmentsService {
-    @Autowired
+
     @Qualifier("assignmentsRepository")
     private static AssignmentsServiceImpl service = null;
+    @Autowired
     private AssignmentsRepository repository;
 
-    private AssignmentsServiceImpl(){
-        this.repository = AssignmentsRepositoryImpl.getRepository();
-    }
-
-    public static AssignmentsService getService(){
-        if (service == null) service = new AssignmentsServiceImpl();
-        return service;
-    }
-
+    public AssignmentsServiceImpl(AssignmentsRepository repository){ this.repository = repository; }
 
     @Override
-    public Assignments create(Assignments educator) {
-        return this.repository.create(educator);
+    public Assignments save(Assignments assignments) {
+        return repository.save(assignments);
     }
 
     @Override
-    public Assignments update(Assignments educator) {
-        return this.repository.update(educator);
-    }
-
-    @Override
-    public void delete(String s) {
-        this.repository.delete(s);
-    }
-
-    @Override
-    public Assignments read(String s) {
-        return this.repository.read(s);
-    }
-
-    @Override
-    public Set<Assignments> getAllA() {
-        Set<Assignments> assignments = getAll();
-
+    public Assignments findById(Integer id) {
+        Optional<Assignments> optional = repository.findById(id);
+        if (optional.isPresent()) {
+            return optional.get();
+        }
         return null;
     }
 
+
     @Override
-    public Set<Assignments> getAll() {
-        return this.repository.getAll();
+    public Assignments create(Assignments assignments) {
+        assignments  = this.repository.save(assignments);
+        return assignments;
+    }
+
+    @Override
+    public Assignments read(Integer s) {
+        return this.repository.findById(s).orElse(null);
+    }
+
+    @Override
+    public Assignments update(Assignments assignments) {
+        return this.repository.save(assignments);
+    }
+
+    @Override
+    public void delete(Integer s) {
+        this.repository.deleteById(s);
+    }
+
+    @Override
+    public List<Assignments> getAll() {
+        return this.repository.findAll();
     }
 }

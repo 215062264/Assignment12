@@ -2,52 +2,60 @@ package ac.za.service.impl.peopleServiceImpl;
 
 import ac.za.domain.people.Tutorial;
 import ac.za.repository.repoInterface.people.TutorialRepository;
-import ac.za.repository.Impl.peopleRepositoryImpl.TutorialRepositoryImpl;
 import ac.za.service.serviceInterface.people.TutorialService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import java.util.List;
+import java.util.Optional;
 
-import java.util.Set;
-@Service("tutorServiceImpl")
+@Service("tutorService")
 public class TutorialServiceImpl implements TutorialService {
-    @Autowired
+
     @Qualifier("tutorRepository")
     private static TutorialServiceImpl service = null;
+    @Autowired
     private TutorialRepository repository;
 
-    private TutorialServiceImpl(){
-        this.repository = TutorialRepositoryImpl.getRepository();
-    }
+    public TutorialServiceImpl(TutorialRepository repository){ this.repository = repository;}
 
-    public static TutorialService getService(){
-        if (service == null) service = new TutorialServiceImpl();
-        return service;
-    }
+    @Override
+    public Tutorial save(Tutorial tutorial) { return repository.save(tutorial);}
 
+    @Override
+    public Tutorial findById(Integer id) {
+        Optional<Tutorial> optional = repository.findById(id);
+        if (optional.isPresent()) {
+            return optional.get();
+        }
+        return null;
+    }
 
     @Override
     public Tutorial create(Tutorial tutorial) {
-        return this.repository.create(tutorial);
+        tutorial  = this.repository.save(tutorial);
+        return tutorial;
+    }
+
+    @Override
+    public Tutorial read(Integer s) {
+        return this.repository.findById(s).orElse(null);
     }
 
     @Override
     public Tutorial update(Tutorial tutorial) {
-        return this.repository.update(tutorial);
+        return this.repository.save(tutorial);
     }
 
     @Override
-    public void delete(String s) {
-        this.repository.delete(s);
+    public void delete(Integer s) {
+        this.repository.deleteById(s);
     }
 
     @Override
-    public Tutorial read(String s) {
-        return this.repository.read(s);
+    public List<Tutorial> getAll() {
+        return this.repository.findAll();
     }
 
-    @Override
-    public Set<Tutorial> getAll() {
-        return this.repository.getAll();
-    }
+
 }

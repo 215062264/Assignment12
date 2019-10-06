@@ -1,15 +1,32 @@
 package ac.za.domain.academicResults;
 
-import org.springframework.boot.autoconfigure.domain.EntityScan;
-
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.Objects;
-@EntityScan
+
+@Entity
 public class Assignments {
 
-    private String assId,dueDate, studentNum;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer assId;
+    private String dueDate, studentNum;
     private double mark;
 
     private Assignments(){}
+
+    public Assignments(String dueDate, String studentNum, double mark) {
+        this(null,dueDate,studentNum,mark);
+    }
+
+    public Assignments(Integer assId, String dueDate, String studentNum, double mark) {
+        this.assId = assId;
+        this.dueDate = dueDate;
+        this.studentNum = studentNum;
+        this.mark = mark;
+    }
 
     private Assignments(Assignments.Builder builder) {
         this.dueDate = builder.dueDate;
@@ -30,11 +47,11 @@ public class Assignments {
         return mark;
     }
 
-    public String getAssId(){return assId;}
+    public Integer getAssId(){return assId;}
 
     public static class Builder {
-
-        private String assId, dueDate, studentNum;
+        private Integer assId;
+        private String dueDate, studentNum;
         private double mark;
 
         public Assignments.Builder dueDate(String dueDate) {
@@ -42,7 +59,7 @@ public class Assignments {
             return this;
         }
 
-        public Assignments.Builder assId(String assId){
+        public Assignments.Builder assId(Integer assId){
             this.assId = assId;
             return this;
         }

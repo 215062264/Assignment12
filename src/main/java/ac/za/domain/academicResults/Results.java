@@ -1,22 +1,36 @@
 package ac.za.domain.academicResults;
 
-import org.springframework.boot.autoconfigure.domain.EntityScan;
-
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.Objects;
-@EntityScan
+
+@Entity
 public class Results {
 
-    private String studentNum;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer studentNum;
     private double mark;
 
     private Results(){}
+
+    public Results(double mark) {
+        this(null,mark);
+    }
+
+    public Results(Integer studentNum, double mark) {
+        this.studentNum = studentNum;
+        this.mark = mark;
+    }
 
     private Results(Results.Builder builder) {
         this.studentNum = builder.studentNum;
         this.mark = builder.mark;
     }
 
-    public String getStudentNum() {
+    public Integer getStudentNum() {
         return studentNum;
     }
 
@@ -27,10 +41,10 @@ public class Results {
 
     public static class Builder {
 
-        private String studentNum;
+        private Integer studentNum;
         private double mark;
 
-        public Results.Builder studentNum(String studentNum) {
+        public Results.Builder studentNum(Integer studentNum) {
             this.studentNum = studentNum;
             return this;
         }

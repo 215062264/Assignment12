@@ -5,7 +5,7 @@ import ac.za.util.Misc;
 
 public class TutorialFactory {
 
-    public static Tutorial getTutorial(String tutorId,String firstName, String lastName) {
+    public static Tutorial getTutorial(Integer tutorId,String firstName, String lastName) {
         return new Tutorial.Builder()
                 .tutorFirstName(firstName)
                 .tutorLastName(lastName)

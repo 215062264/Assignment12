@@ -6,13 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Set;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/admin/educator")
 public class EducatorController {
     @Autowired
-    @Qualifier("educatorServiceImpl")
+    @Qualifier("educatorService")
     private EducatorService service;
 
     @PostMapping("/create")
@@ -29,19 +29,19 @@ public class EducatorController {
 
     @GetMapping("/delete/{id}")
     @ResponseBody
-    public void delete(@PathVariable String id) {
+    public void delete(@PathVariable Integer id) {
         service.delete(id);
     }
 
     @GetMapping("/read/{id}")
     @ResponseBody
-    public Educator read(@PathVariable String id) {
+    public Educator read(@PathVariable Integer id) {
         return service.read(id);
     }
 
     @GetMapping("/read/all")
     @ResponseBody
-    public Set<Educator> getAll() {
-        return service.getAll();
+    public List<Educator> getAll() {
+        return (List<Educator>) service.getAll();
     }
 }

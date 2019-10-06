@@ -5,9 +5,9 @@ import ac.za.util.Misc;
 
 public class AssignmentsFactory {
 
-    public static Assignments getAssignments(String duedate, String studentNum, double mark) {
+    public static Assignments getAssignments(Integer assId,String duedate, String studentNum, double mark) {
         return new Assignments.Builder()
-                .assId(Misc.generateId())
+                .assId(assId)
                 .dueDate(duedate)
                 .studentNum(studentNum)
                 .mark(mark)

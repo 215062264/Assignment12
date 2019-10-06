@@ -5,14 +5,14 @@ import ac.za.service.serviceInterface.people.TutorialService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
-import java.util.Set;
 
 @RestController
 @RequestMapping("/api/tutorial")
 public class TutorialController {
     @Autowired
-    @Qualifier("tutorServiceImpl")
+    @Qualifier("tutorService")
     private TutorialService service;
 
     @PostMapping("/create")
@@ -29,19 +29,19 @@ public class TutorialController {
 
     @GetMapping("/delete/{id}")
     @ResponseBody
-    public void delete(@PathVariable String id) {
+    public void delete(@PathVariable Integer id) {
         service.delete(id);
     }
 
     @GetMapping("/read/{id}")
     @ResponseBody
-    public Tutorial read(@PathVariable String id) {
+    public Tutorial read(@PathVariable Integer id) {
         return service.read(id);
     }
 
     @GetMapping("/read/all")
     @ResponseBody
-    public Set<Tutorial> getAll() {
+    public List<Tutorial> getAll() {
         return service.getAll();
     }
 }

@@ -1,14 +1,30 @@
 package ac.za.domain.people;
 
-import org.springframework.boot.autoconfigure.domain.EntityScan;
-
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.Objects;
-@EntityScan
+
+@Entity
 public class Tutorial {
 
-    private String tutorId, tutorFirstName, tutorLastName;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer tutorId;
+    private String tutorFirstName, tutorLastName;
 
     private Tutorial(){}
+
+    public Tutorial(String tutorFirstName, String tutorLastName) {
+        this(null,tutorFirstName,tutorLastName);
+    }
+
+    public Tutorial(Integer tutorId, String tutorFirstName, String tutorLastName) {
+        this.tutorId = tutorId;
+        this.tutorFirstName = tutorFirstName;
+        this.tutorLastName = tutorLastName;
+    }
 
     private Tutorial(Tutorial.Builder builder) {
         this.tutorId = builder.tutorId;
@@ -16,7 +32,7 @@ public class Tutorial {
         this.tutorLastName = builder.tutorLastName;
     }
 
-    public String getTutorId() {
+    public Integer getTutorId() {
         return tutorId;
     }
 
@@ -30,10 +46,10 @@ public class Tutorial {
 
 
     public static class Builder {
+        private Integer tutorId;
+        private String tutorFirstName, tutorLastName;
 
-        private String tutorId, tutorFirstName, tutorLastName;
-
-        public Tutorial.Builder tutorId(String tutorId) {
+        public Tutorial.Builder tutorId(Integer tutorId) {
             this.tutorId = tutorId;
             return this;
         }

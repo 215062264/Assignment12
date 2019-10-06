@@ -1,15 +1,31 @@
 package ac.za.domain.academicResults;
 
-import org.springframework.boot.autoconfigure.domain.EntityScan;
-
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.Objects;
-@EntityScan
+
+@Entity
 public class Quiz {
 
-    private String dueDate, studentNum;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer studentNum;
+    private String dueDate;
     private double mark;
 
     private Quiz(){}
+
+    public Quiz(String dueDate, double mark) {
+        this(null,dueDate,mark);
+    }
+
+    public Quiz(Integer studentNum, String dueDate, double mark) {
+        this.studentNum = studentNum;
+        this.dueDate = dueDate;
+        this.mark = mark;
+    }
 
     private Quiz(Quiz.Builder builder) {
         this.dueDate = builder.dueDate;
@@ -21,7 +37,7 @@ public class Quiz {
         return dueDate;
     }
 
-    public String getStudentNum() {
+    public Integer getStudentNum() {
         return studentNum;
     }
 
@@ -31,8 +47,8 @@ public class Quiz {
 
 
     public static class Builder {
-
-        private String dueDate, studentNum;
+        private Integer studentNum;
+        private String dueDate;
         private double mark;
 
         public Quiz.Builder dueDate(String dueDate) {
@@ -40,7 +56,7 @@ public class Quiz {
             return this;
         }
 
-        public Quiz.Builder studentNum(String studentNum) {
+        public Quiz.Builder studentNum(Integer studentNum) {
             this.studentNum = studentNum;
             return this;
         }

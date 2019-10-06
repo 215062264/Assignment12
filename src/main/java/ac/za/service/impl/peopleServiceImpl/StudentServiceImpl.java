@@ -1,51 +1,63 @@
 package ac.za.service.impl.peopleServiceImpl;
 
 import ac.za.domain.people.Student;
-import ac.za.repository.Impl.peopleRepositoryImpl.StudentRepositoryImpl;
 import ac.za.repository.repoInterface.people.StudentRepository;
 import ac.za.service.serviceInterface.people.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-import java.util.Set;
+import java.util.List;
+import java.util.Optional;
 
-@Service("studentServiceImpl")
+
+@Service("studentService")
 public class StudentServiceImpl implements StudentService {
-    @Autowired
+
     @Qualifier("studentRepository")
     private static StudentServiceImpl service = null;
+    @Autowired
     private StudentRepository repository;
 
-    private StudentServiceImpl(){
-        this.repository = StudentRepositoryImpl.getRepository();
+    public StudentServiceImpl(StudentRepository repository){
+        this.repository = repository;
     }
 
-    public static StudentService getService(){
-        if (service == null) service = new StudentServiceImpl();
-        return service;
+    @Override
+    public Student save(Student student) { return repository.save(student); }
+
+    @Override
+    public Student findById(Integer id) {
+        Optional<Student> optional = repository.findById(id);
+        if (optional.isPresent()) {
+            return optional.get();
+        }
+        return null;
     }
 
     @Override
     public Student create(Student student) {
-        return repository.create(student);
+        student  = this.repository.save(student);
+        return student;
+    }
+
+    @Override
+    public Student read(Integer s) {
+        return this.repository.findById(s).orElse(null);
     }
 
     @Override
     public Student update(Student student) {
-        return repository.update(student);
+        return repository.save(student);
     }
 
     @Override
-    public void delete(String s) { repository.delete(s); }
+    public void delete(Integer s) { repository.deleteById(s); }
 
     @Override
-    public Student read(String s) {
-        return repository.read(s);
+    public List<Student> getAll() {
+        return repository.findAll();
     }
 
-    @Override
-    public Set<Student> getAll() {
-        return repository.getAll();
-    }
+
 
 }

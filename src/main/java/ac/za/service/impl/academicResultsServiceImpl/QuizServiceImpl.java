@@ -2,56 +2,59 @@ package ac.za.service.impl.academicResultsServiceImpl;
 
 import ac.za.domain.academicResults.Quiz;
 import ac.za.repository.repoInterface.academicResults.QuizRepository;
-import ac.za.repository.Impl.academicResultsRepositoryImpl.QuizRepositoryImpl;
 import ac.za.service.serviceInterface.academicResults.QuizService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.util.List;
+import java.util.Optional;
 
-import java.util.Set;
+
 @Service
 public class QuizServiceImpl implements QuizService {
 
     private static QuizServiceImpl service = null;
+    @Autowired
     private QuizRepository repository;
 
-    private QuizServiceImpl(){
-        this.repository = QuizRepositoryImpl.getRepository();
-    }
-
-    public static QuizService getService(){
-        if (service == null) service = new QuizServiceImpl();
-        return service;
-    }
-
-
-    @Override
-    public Quiz create(Quiz educator) {
-        return this.repository.create(educator);
+    public QuizServiceImpl(QuizRepository repository){
+        this.repository = repository;
     }
 
     @Override
-    public Quiz update(Quiz educator) {
-        return this.repository.update(educator);
+    public Quiz save(Quiz quiz) {
+        return repository.save(quiz);
     }
 
     @Override
-    public void delete(String s) {
-        this.repository.delete(s);
-    }
-
-    @Override
-    public Quiz read(String s) {
-        return this.repository.read(s);
-    }
-
-    @Override
-    public Set<Quiz> getAllP() {
-        Set<Quiz> quizzes = getAll();
-
+    public Quiz findById(Integer id) {
+        Optional<Quiz> optional = repository.findById(id);
+        if (optional.isPresent()) {
+            return optional.get();
+        }
         return null;
     }
 
+
     @Override
-    public Set<Quiz> getAll() {
-        return this.repository.getAll();
+    public Quiz create(Quiz quiz) { quiz  = this.repository.save(quiz);return quiz; }
+
+    @Override
+    public Quiz read(Integer s) {
+        return this.repository.findById(s).orElse(null);
+    }
+
+    @Override
+    public Quiz update(Quiz quiz) {
+        return this.repository.save(quiz);
+    }
+
+    @Override
+    public void delete(Integer s) {
+        this.repository.deleteById(s);
+    }
+
+    @Override
+    public List<Quiz> getAll() {
+        return this.repository.findAll();
     }
 }

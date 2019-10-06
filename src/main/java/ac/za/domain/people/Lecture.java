@@ -1,15 +1,31 @@
 package ac.za.domain.people;
 
-import org.springframework.boot.autoconfigure.domain.EntityScan;
-
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.Objects;
-@EntityScan
+
+@Entity
 public class Lecture {
 
-    private String lecturerId,professor;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer lecturerId;
+    private String  professor;
     private int hours;
 
     private Lecture(){}
+
+    public Lecture(String professor, int hours) {
+        this(null,professor,hours);
+    }
+
+    public Lecture(Integer lecturerId, String professor, int hours) {
+        this.lecturerId = lecturerId;
+        this.professor = professor;
+        this.hours = hours;
+    }
 
     private Lecture(Lecture.Builder builder) {
         this.professor = builder.professor;
@@ -18,7 +34,7 @@ public class Lecture {
     }
 
 
-    public String getLecturerId(){return lecturerId;}
+    public Integer getLecturerId(){return lecturerId;}
 
     public String getProfessor() {
         return professor;
@@ -30,11 +46,11 @@ public class Lecture {
 
 
     public static class Builder{
-
-        private String lecturerId,professor;
+        private Integer lecturerId;
+        private String professor;
         private int hours;
 
-        public Lecture.Builder lecturerId(String lecturerId){
+        public Lecture.Builder lecturerId(Integer lecturerId){
             this.lecturerId = lecturerId;
             return this;
         }

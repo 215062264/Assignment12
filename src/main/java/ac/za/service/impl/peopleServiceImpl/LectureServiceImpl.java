@@ -2,54 +2,60 @@ package ac.za.service.impl.peopleServiceImpl;
 
 import ac.za.domain.people.Lecture;
 import ac.za.repository.repoInterface.people.LectureRepository;
-import ac.za.repository.Impl.peopleRepositoryImpl.LectureRepositoryImpl;
 import ac.za.service.serviceInterface.people.LectureService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import java.util.List;
+import java.util.Optional;
 
-import java.util.Set;
-@Service("lectureServiceImpl")
+
+@Service("lectureService")
 public class LectureServiceImpl implements LectureService {
 
-    @Autowired
     @Qualifier("lectureRepository")
     private static LectureServiceImpl service = null;
+    @Autowired
     private LectureRepository repository;
+    public LectureServiceImpl(LectureRepository repository){ this.repository = repository;}
 
-    private LectureServiceImpl(){
-        this.repository = LectureRepositoryImpl.getRepository();
+    @Override
+    public Lecture save(Lecture lecture) {
+        return repository.save(lecture);
     }
 
-    public static LectureService getService(){
-        if (service == null) service = new LectureServiceImpl();
-        return service;
+    @Override
+    public Lecture findById(Integer id) {
+        Optional<Lecture> optional = repository.findById(id);
+        if (optional.isPresent()) {
+            return optional.get();
+        }
+        return null;
     }
-
 
     @Override
     public Lecture create(Lecture lecture) {
-        return this.repository.create(lecture);
+        lecture  = this.repository.save(lecture);
+        return lecture;
+    }
+
+    @Override
+    public Lecture read(Integer s) {
+        return this.repository.findById(s).orElse(null);
     }
 
     @Override
     public Lecture update(Lecture lecture) {
-        return this.repository.update(lecture);
+        return this.repository.save(lecture);
     }
 
     @Override
-    public void delete(String s) {
-        this.repository.delete(s);
+    public void delete(Integer s) {
+        this.repository.deleteById(s);
     }
 
     @Override
-    public Lecture read(String s) {
-        return this.repository.read(s);
-    }
-
-
-    @Override
-    public Set<Lecture> getAll() {
-        return this.repository.getAll();
+    public List<Lecture> getAll() {
+        return this.repository.findAll();
     }
 }

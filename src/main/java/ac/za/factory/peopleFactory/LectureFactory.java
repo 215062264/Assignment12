@@ -4,7 +4,7 @@ import ac.za.domain.people.Lecture;
 
 public class LectureFactory {
 
-    public static Lecture getLecture(String lecturerId,String professor, int hrs) {
+    public static Lecture getLecture(Integer lecturerId,String professor, int hrs) {
         return new Lecture.Builder()
                 .lecturerId(lecturerId)
                 .professor(professor)
